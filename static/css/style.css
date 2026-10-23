@@ -1,4 +1,12 @@
 /* Layout styling is provided by Tailwind utility classes. */
+.font-heading {
+  font-family: "Oswald", sans-serif;
+}
+
+.font-mono {
+  font-family: "Roboto Mono", monospace;
+}
+
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
