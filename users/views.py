@@ -3,14 +3,12 @@ from django.contrib import messages
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
-def register(request):
+def balance(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created! You can now log in.')
-            return redirect('login')
-    else:
-        form = UserCreationForm()
-        
-    return render(request, 'users/register.html', {'form': form})
+        amount=request.POST.get('amount', 0)
+        request.user.userprofile.userBalance = float(request.user.userprofile.userBalance) + float(amount)
+        request.user.userprofile.save()
+        messages.success(request, 'Funds added successfully.')
+    return render(request, 'users/balance.html')
